@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LibraryAdvancedApiApplicationTests {
+public class BorrowRecordServiceTest {
 
     @Test
-    void contextLoads() {
+    void transactionRollbackTest() {
+
+        // Transaction rollback scenario placeholder
 
     }
-
 }
