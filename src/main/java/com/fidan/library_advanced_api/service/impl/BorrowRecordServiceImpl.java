@@ -13,7 +13,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,18 +25,16 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
 
     @Override
     @Transactional
-    public BorrowRecordResponseDTO borrowBook(BorrowRecordRequestDTO dto) {
+    public BorrowRecordResponseDTO create(BorrowRecordRequestDTO dto) {
 
         Book book = bookRepository.findById(dto.getBookId())
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
 
-        BorrowRecord record = new BorrowRecord();
-        record.setBook(book);
-        record.setBorrowerName(dto.getBorrowerName());
-        record.setBorrowDate(LocalDate.now());
+        BorrowRecord borrowRecord = borrowRecordMapper.toEntity(dto);
+        borrowRecord.setBook(book);
 
-        return borrowRecordMapper.toResponse(
-                borrowRecordRepository.save(record)
+        return borrowRecordMapper.toDTO(
+                borrowRecordRepository.save(borrowRecord)
         );
     }
 
@@ -46,17 +43,17 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
 
         return borrowRecordRepository.findAll()
                 .stream()
-                .map(borrowRecordMapper::toResponse)
+                .map(borrowRecordMapper::toDTO)
                 .toList();
     }
 
     @Override
     public BorrowRecordResponseDTO getById(Long id) {
 
-        BorrowRecord record = borrowRecordRepository.findById(id)
+        BorrowRecord borrowRecord = borrowRecordRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Borrow record not found"));
 
-        return borrowRecordMapper.toResponse(record);
+        return borrowRecordMapper.toDTO(borrowRecord);
     }
 
     @Override
@@ -64,4 +61,5 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
 
         borrowRecordRepository.deleteById(id);
     }
+
 }

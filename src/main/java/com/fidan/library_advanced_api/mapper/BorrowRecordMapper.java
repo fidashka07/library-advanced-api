@@ -1,5 +1,6 @@
 package com.fidan.library_advanced_api.mapper;
 
+import com.fidan.library_advanced_api.dto.request.BorrowRecordRequestDTO;
 import com.fidan.library_advanced_api.dto.response.BorrowRecordResponseDTO;
 import com.fidan.library_advanced_api.entity.BorrowRecord;
 import org.springframework.stereotype.Component;
@@ -7,7 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class BorrowRecordMapper {
 
-    public BorrowRecordResponseDTO toResponse(BorrowRecord record) {
+    public BorrowRecord toEntity(BorrowRecordRequestDTO dto) {
+
+        BorrowRecord record = new BorrowRecord();
+
+        record.setBorrowerName(dto.getBorrowerName());
+        record.setBorrowDate(dto.getBorrowDate());
+
+        return record;
+    }
+
+    public BorrowRecordResponseDTO toDTO(BorrowRecord record) {
 
         BorrowRecordResponseDTO dto = new BorrowRecordResponseDTO();
 

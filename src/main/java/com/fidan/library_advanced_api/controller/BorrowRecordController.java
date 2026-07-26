@@ -16,9 +16,9 @@ public class BorrowRecordController {
     private final BorrowRecordService borrowRecordService;
 
     @PostMapping
-    public BorrowRecordResponseDTO borrowBook(@RequestBody BorrowRecordRequestDTO dto) {
+    public BorrowRecordResponseDTO create(@RequestBody BorrowRecordRequestDTO dto) {
 
-        return borrowRecordService.borrowBook(dto);
+        return borrowRecordService.create(dto);
     }
 
     @GetMapping
@@ -38,4 +38,5 @@ public class BorrowRecordController {
 
         borrowRecordService.delete(id);
     }
+
 }

@@ -20,14 +20,14 @@ public class AuthorController {
         return authorService.create(dto);
     }
 
-    @GetMapping("/{id}")
-    public AuthorResponseDTO getById(@PathVariable Long id) {
-        return authorService.getById(id);
-    }
-
     @GetMapping
     public List<AuthorResponseDTO> getAll() {
         return authorService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public AuthorResponseDTO getById(@PathVariable Long id) {
+        return authorService.getById(id);
     }
 
     @PutMapping("/{id}")

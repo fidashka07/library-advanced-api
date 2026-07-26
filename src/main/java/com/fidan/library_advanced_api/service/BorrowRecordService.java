@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BorrowRecordService {
 
-    BorrowRecordResponseDTO borrowBook(BorrowRecordRequestDTO dto);
+    BorrowRecordResponseDTO create(BorrowRecordRequestDTO dto);
 
     List<BorrowRecordResponseDTO> getAll();
 
