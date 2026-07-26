@@ -1,23 +1,41 @@
 package com.fidan.library_advanced_api.controller;
 
-import com.fidan.library_advanced_api.entity.BorrowRecord;
+import com.fidan.library_advanced_api.dto.request.BorrowRecordRequestDTO;
+import com.fidan.library_advanced_api.dto.response.BorrowRecordResponseDTO;
 import com.fidan.library_advanced_api.service.BorrowRecordService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/borrow")
+@RequestMapping("/borrow-records")
+@RequiredArgsConstructor
 public class BorrowRecordController {
 
     private final BorrowRecordService borrowRecordService;
 
-    public BorrowRecordController(BorrowRecordService borrowRecordService) {
-        this.borrowRecordService = borrowRecordService;
+    @PostMapping
+    public BorrowRecordResponseDTO borrowBook(@RequestBody BorrowRecordRequestDTO dto) {
+
+        return borrowRecordService.borrowBook(dto);
     }
 
-    @PostMapping
-    public BorrowRecord borrowBook(@RequestParam Long bookId,
-                                   @RequestParam String borrowerName) {
+    @GetMapping
+    public List<BorrowRecordResponseDTO> getAll() {
 
-        return borrowRecordService.borrowBook(bookId, borrowerName);
+        return borrowRecordService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public BorrowRecordResponseDTO getById(@PathVariable Long id) {
+
+        return borrowRecordService.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+
+        borrowRecordService.delete(id);
     }
 }
