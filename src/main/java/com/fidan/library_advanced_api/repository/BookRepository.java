@@ -1,15 +1,18 @@
 package com.fidan.library_advanced_api.repository;
 
 import com.fidan.library_advanced_api.entity.Book;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    List<Book> findByTitleContainingIgnoreCase(String title);
+    List<Book> findByTitleContaining(String title);
 
-    @EntityGraph(attributePaths = {"author", "categories"})
-    List<Book> findAll();
+    List<Book> findByPriceGreaterThan(Double price);
+
+    @Query("SELECT b FROM Book b WHERE b.author.name = :authorName")
+    List<Book> findBooksByAuthorName(String authorName);
+
 }
